@@ -54,7 +54,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 2. Decide which file in your solution is the 'Master'. This will generally be the UI file in a separated solution.
 3. Decide which file(s) in your solution will require account management. This will generally be the data file and can include the master file as well. These will be the 'managed' files.
 
-###Add tables and layouts
+###Tables and Layouts
 1. Copy the module table 'Account' to your solution data file
 	* If you already had an Account table, create or rename your fields so that the field names are the same. If there are any fields missing, copy them over to your existing table.
 	* The module does not care about your creation/modification account and timestamp fields or your ID. You do not need to rename them.
@@ -73,6 +73,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* The TO context for this layout should be GLOBAL.  
 	* Create, or rename, a table occurance that will be used by a portal this layout called 'Account'.
 	* Connect the TO for the GLOBAL table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
+###Value Lists and Privilege Sets
 5. Create Value Lists
 	* Create a Value List in master file: Accounts_PrivilegeSet and add your privilege sets to the custom value list. Watch your spelling! 
 	* Create a Value List in master file: Accounts_Boolean with custom value of 1 and 0.
@@ -80,6 +81,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 6. Create Privilege Sets
 	* For all files that will have managed accounts, create the privilege sets that the module will use. The module expects that for each managed file the privilege sets are the same. Check spelling, fool!
 	* Create two 'dummy' privilege sets: PrivSet1, PrivSet2 in the master file. You will delete these later.
+###Scripts
 7. Copy Scripts: Master file only
 	* Create a Modules script folder in the master file.
 	* Clear or delete the import.log file before you import scripts.
@@ -109,6 +111,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Modify the script Accounts: ReturnAccountSettings in the master file.
 	* Specify a default password.
 	* Modify other settings as desired.
+###User Interface and Tesing
 13. Add User Interface Elements
 	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to your solution layout designated for account management.
 	* Check the import.log file for any new errors.
