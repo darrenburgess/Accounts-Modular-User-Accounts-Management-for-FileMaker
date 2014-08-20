@@ -3,6 +3,8 @@ FileMaker-Accounts-Module
 
 The Accounts module allows for management of user accounts in a FileMaker Pro in a single or multifile solution.
 
+Version 2.0, beta release
+
 Assumptions
 -----------
 The module makes some assumptions about the security schema for multifile solutions.
