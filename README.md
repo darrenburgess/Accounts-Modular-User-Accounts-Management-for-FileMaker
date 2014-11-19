@@ -71,7 +71,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 4. Create a layout for account management in the master file
 	* This will be the UI layout used to manage accounts.
 	* The TO context for this layout should be GLOBAL.  
-	* Create, or rename, a table occurance that will be used by a portal this layout called 'Account'.
+	* Create, or rename, a table occurance that will be used by a portal on this layout called 'Account'.
 	* Connect the TO for the GLOBAL table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
 
 ###Value Lists and Privilege Sets
@@ -81,7 +81,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Again, if you already have these value lists, rename what you have.
 6. Create Privilege Sets
 	* For all files that will have managed accounts, create the privilege sets that the module will use. The module expects that for each managed file the privilege sets are the same. Check spelling, fool!
-	* Create two 'dummy' privilege sets: PrivSet1, PrivSet2 in the master file. You will delete these later.
+	* Create two 'dummy' privilege sets: PrivSet1, PrivSet2 in all managed files. You will delete these later.
 
 ###Scripts
 7. Copy Scripts: Master file only
@@ -98,6 +98,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Each public script will have instructions inside the script.
 	* Instructions will involve copying a block of script steps for each privilege set in the solution.
 	* Follow the instructions in each public script carefully, make sure to modify each line where called to do so.
+	* Don't edit the Accounts: ErrorText or Accounts: AllowAbort scripts.  They are in public, but do not need to be edited.  
 	* Create a Modules script folder in each managed file.
 	* Creates an Accounts script subfolder in Modules script folder in each managed file.
 	* Copy the 'Accounts: Public - All Files' folder to the Modules/Accounts script folder in each managed file.
@@ -119,12 +120,13 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to your solution layout designated for account management.
 	* Check the import.log file for any new errors.
 	* Add your launcher file to the launcher container field.
-	* If you already had user interface for show accounts in a portal, then you will have to modify the buttons to run the Accounts: Account Function script.  Check the module buttons for the proper syntax for the script parameters on the buttons. Don't modify the script parameters, just copy and paste to the appropriate button.
+	* If you already had user interface for showing accounts in a portal, then you will have to modify the buttons to run the Accounts: Account Function script.  Check the module buttons for the proper syntax for the script parameters on the buttons. Don't modify the script parameters, just copy and paste to the appropriate button.
 14. Testing and Wrapup
 	* Test each function: Create/Delete/Status/Reset/Change Privilege/Email
 	* If testing is successful, revert the names of each object you renamed for the integration.
 	* If there were already accounts in each of your managed files, they should be removed and recreated.
 	* Delete the dummy privilege sets PrivSet1 and PrivSet2 from the master file.
+	* Fix any objects names that you renamed during integration
 
 Nicely done!
 
