@@ -115,7 +115,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Specify a default password.
 	* Modify other settings as desired.
 
-###User Interface and Tesing
+###User Interface and Testing
 13. Add User Interface Elements
 	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to your solution layout designated for account management.
 	* Check the import.log file for any new errors.
@@ -126,7 +126,6 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* If testing is successful, revert the names of each object you renamed for the integration.
 	* If there were already accounts in each of your managed files, they should be removed and recreated.
 	* Delete the dummy privilege sets PrivSet1 and PrivSet2 from the master file.
-	* Fix any objects names that you renamed during integration
 
 Nicely done!
 
