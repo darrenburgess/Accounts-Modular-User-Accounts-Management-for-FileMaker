@@ -58,21 +58,25 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 1. Copy the module table 'Account' to your solution data file
 	* If you already had an Account table, create or rename your fields so that the field names are the same. If there are any fields missing, copy them over to your existing table.
 	* The module does not care about your creation/modification account and timestamp fields or your ID. You do not need to rename them.
-2. In the Master file create (or rename) a layout called 'Account'. 
+2.	Add an table occurance for the Account table to your master file if the master file is not your data file.
+	* Add a external file reference to your data file if needed.
+	* Name the table occurance 'Account'
+3. In the Master file create (or rename) a layout called 'Account'. 
 	* This will be the utility layout used to create and delete account records.
 	* You can rename it to conform to your naming conventions later.
-	* Make sure it has all the fields in the Account table on it.
-3. Copy and paste the GLOBAL table in the module file to your master file.  
+	* ???redundant??? Make sure it has all the fields in the Account table on it.
+4. Copy and paste the GLOBAL table in the module file to your master file.  
 	* If you already have a GLOBAL table in master, rename the primary TO for this table to GLOBAL, and just copy the fields found in the GLOBAL table.  
 	* You can rename the TO back to your conventions later.  
 	* Alternatively, you can create another TO instance of your interface/global table and call it GLOBAL.
 	* If you already had a globals table, copy and paste the fields in the module GLOBAL table to your table. This includes global fields, a constant, and a container field for the launcher file.
 	* Create one record in the GLOBAL table.
-4. Create a layout for account management in the master file
+	* Create a table occurrance for the GLOBAL table called 'System'. This is in addition to the GLOBAL table occurrance.
+5. Create a layout for account management in the master file
 	* This will be the UI layout used to manage accounts.
-	* The TO context for this layout should be GLOBAL.  
+	* The TO context for this layout should be System.  
 	* Create, or rename, a table occurance that will be used by a portal on this layout called 'Account'.
-	* Connect the TO for the GLOBAL table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
+	* Connect the TO for the System table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
 
 ###Value Lists and Privilege Sets
 5. Create Value Lists
@@ -86,9 +90,10 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 ###Scripts
 7. Copy Scripts: Master file only
 	* Create a Modules script folder in the master file.
-	* Clear or delete the import.log file before you import scripts.
+	* Clear or delete the import.log file before you import scripts. 
+	* Pro Tip: Open the import log in a text editor such as sublime. Leave it open throughout the process. Sublime will refresh the log when changes are made by FileMaker. After you review each import, clear and save the blank log.
 	* Master File Only: Copy the Accounts module folder and all scripts into your Modules script folder.
-	* Scripts should now be copied from your master file for all future script copy steps beyond this point.
+	* Important! Scripts should now be copied from your master file for all future script copy steps beyond this point.
 8. Error Check
 	* This is a great time to do an error check of the import.log file.
 	* Look in the log file and see if there are any lines that indicate something is 'missing'.
