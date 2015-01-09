@@ -136,7 +136,6 @@ Nicely done!
 
 ###Contact me if you have any questions:
 	* darrentburgess(at)gmail.com
-	* darren_burgess(at)mightydata.com
 	* @darrenburgess on twitter.
 
 
