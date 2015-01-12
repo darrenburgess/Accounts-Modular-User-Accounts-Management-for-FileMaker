@@ -49,6 +49,8 @@ The FileMaker import.log file that is generated when importing objects such as s
 
 Again, modifying scripts in the private folders or any script parameters is a POOR LIFE DECISION. All script modification happens to scripts in the PUBLIC folders. Don't modify script parameters.
 
+Important: Once you integrate the module, avoid modifying accounts in any of the managed files using the FileMaker security dialogs.  Doing so can create lack of parity between the actual accounts and the account records, causing errors in the module.  After integration try to only use the module to manage accounts.
+
 ###Initial Set Up
 1. I pity the fool that that don't make no back up!
 2. Decide which file in your solution is the 'Master'. This will generally be the UI file in a separated solution.
@@ -58,7 +60,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 1. Copy the module table 'Account' to your solution data file
 	* If you already had an Account table, create or rename your fields so that the field names are the same. If there are any fields missing, copy them over to your existing table.
 	* The module does not care about your creation/modification account and timestamp fields or your ID. You do not need to rename them.
-2.	Add an table occurance for the Account table to your master file if the master file is not your data file.
+2.	Add a table occurrence for the Account table to your master file if the master file is not your data file.
 	* Add a external file reference to your data file if needed.
 	* Name the table occurrence 'Account'
 3. In the Master file create (or rename) a layout called 'Account'. 
@@ -66,71 +68,73 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* This will be the utility layout used to create and delete account records.
 	* You can rename it to conform to your naming conventions later.
 4. Copy and paste the GLOBAL table in the module file to your master file.  
-	* If you already had a globals table, copy and paste the fields in the module GLOBAL table to your table. This includes global fields, a constant, and a container field for the launcher file.  
-	* You can rename the TO back to your conventions later.  
+	* If you already have a globals table, copy and paste the fields in the module GLOBAL table to your table. This includes global fields, a constant, and a container field for the launcher file.  
+	* If you already have a globals table, rename it to GLOBAL. You can rename the TO back to your conventions later.  
 	* Alternatively, you can create another TO instance of your interface/global table and call it GLOBAL.
-	* Create one record in the GLOBAL table.
-	* Create a table occurrance for the GLOBAL table called 'System'. This is in addition to the GLOBAL table occurrance.
+	* Create one record in the GLOBAL table (if there is not already).
+	* Create a table occurrence for the GLOBAL table called 'System'. This is in addition to the GLOBAL table occurrence.
 5. Create a layout for account management in the master file
 	* Name the layout 'AccountManagement'
 	* This will be the UI layout used to manage accounts.
 	* The TO context for this layout should be System.
 6. Create a layout based on the 'System' table occurrence in the master file.
-6. In the master file, connect the System and Account table occurrences
+7. In the master file, connect the System and Account table occurrences
 	* Connect the TO for the System table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
 
 ###Value Lists and Privilege Sets
-5. Create Value Lists
+1. Create Value Lists
 	* Create a Value List in master file: 'Accounts_PrivilegeSet' and add your privilege sets to the custom value list. Watch your spelling! 
 	* Create a Value List in master file: Accounts_Boolean with custom value of 1 and 0.
-	* Again, if you already have these value lists, rename what you have.
-6. Create Privilege Sets
+	* If you already have these value lists, rename what you have to the names provided above. You can restore your original names later.
+2. Create Privilege Sets
 	* For all files that will have managed accounts, create the privilege sets that the module will use. The module expects that for each managed file the privilege sets are the same. Check spelling, fool!
-	* Create two 'dummy' privilege sets: PrivSet1, PrivSet2 in all managed files. You will delete these later.
+	* Create two 'dummy' privilege sets: 'PrivSet1', 'PrivSet2' in all managed files. You will delete these later.
 
 ###Scripts
-7. Copy Scripts: Master file only
+1. Copy Scripts: Master file only
 	* Create a Modules script folder in the master file.
 	* Clear or delete the import.log file before you import scripts. 
-	* Pro Tip: Open the import log in a text editor such as sublime. Leave it open throughout the process. Sublime will refresh the log when changes are made by FileMaker. After you review each import, clear and save the blank log.
 	* Master File Only: Copy the Accounts module folder and all scripts into your Modules script folder.
 	* Important! Scripts should now be copied from your master file for all future script copy steps beyond this point.
-8. Error Check
+	* Pro Tip: Open the import log in a text editor such as Sublime. Leave it open throughout the process. Sublime will refresh the log when changes are made by FileMaker. After you review each import, clear and save the blank log.
+2. Error Check
 	* This is a great time to do an error check of the import.log file.
-	* Look in the log file and see if there are any lines that indicate something is 'missing'.
+	* Look at the log file and see if there are any lines that indicate something is 'missing'.
 	* If there are any errors, try to figure out what you missed, then fix it, then delete and reimport the scripts.
-9. Script Modification 1: Master file
+	* Don't move on until you have resolved all errors.
+3. Script Modification 1: Master file
 	* Modify scripts in the 'Accounts: Public - All Files' folder in your master file.
 	* Each public script will have instructions inside the script.
 	* Instructions will involve copying a block of script steps for each privilege set in the solution.
 	* Follow the instructions in each public script carefully, make sure to modify each line where called to do so.
 	* Don't edit the Accounts: ErrorText or Accounts: AllowAbort scripts.  They are in public, but do not need to be edited. 
-10. Copy Public - All Files scripts 
+4. Copy Public - All Files scripts 
 	* Create a Modules script folder in each managed file.
 	* Creates an Accounts script subfolder in Modules script folder in each managed file.
 	* Copy the 'Accounts: Public - All Files' folder to the Modules/Accounts script folder in each managed file.
 	* Check the import.log file for any new errors.
-10. Copy Private Scripts: Managed file(s)
+5. Copy Private Scripts: Managed file(s)
 	* From the Master file: Copy 'Accounts: Private All Files' script folder and all scripts in the folder to the Modules/Accounts folder in each managed file.
 	* Check the import.log file for any new errors.
-11. Script Modification 2: Master file
+6. Script Modification 2: Master file
 	* Modify scripts in the 'Accounts: Public - Master File Only' folder
 	* Each of the scripts with 'SubScript' in the script name will need to call their respective scripts in each managed file.
 	* Follow the instructions carefully, changing the script steps as indicated in the script comments.
 	* If the master file is also a managed file, then the first script block is already configured for the master file. No need to change it.
-12. Script Modification 3: Accounts: ReturnAccountSettings
+7. Script Modification 3: Accounts: ReturnAccountSettings
 	* Modify the script Accounts: ReturnAccountSettings in the master file.
 	* Specify a default password.
 	* Modify other settings as desired.
 
 ###User Interface and Testing
-13. Add User Interface Elements
+1. Add User Interface Elements
 	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to the 'AccountManagement' layout in the master file.
 	* Make sure there are no broken field references on the layout.
 	* Add your launcher file to the launcher container field.
 	* If you already had user interface for showing accounts in a portal, then you will have to modify the buttons to run the Accounts: Account Function script.  Check the module buttons for the proper syntax for the script parameters on the buttons. Don't modify the script parameters, just copy and paste to the appropriate button.
-14. Testing and Wrapup
+2. Testing and Wrapup
 	* Test each function: Create/Delete/Status/Reset/Change Privilege/Email
+	* Test the function and then check each managed file to verify that the function executed properly.
 	* If testing is successful, revert the names of each object you renamed for the integration.
 	* If there were already accounts in each of your managed files, they should be removed and recreated.
 	* Delete the dummy privilege sets PrivSet1 and PrivSet2 from each of the managed files.
