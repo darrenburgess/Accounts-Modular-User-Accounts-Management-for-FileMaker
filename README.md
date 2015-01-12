@@ -3,7 +3,7 @@ FileMaker-Accounts-Module
 
 The Accounts module allows for management of user accounts in a FileMaker Pro in a single or multifile solution.
 
-Version 2.01
+Version 2.02
 
 Assumptions
 -----------
@@ -60,27 +60,28 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* The module does not care about your creation/modification account and timestamp fields or your ID. You do not need to rename them.
 2.	Add an table occurance for the Account table to your master file if the master file is not your data file.
 	* Add a external file reference to your data file if needed.
-	* Name the table occurance 'Account'
+	* Name the table occurrence 'Account'
 3. In the Master file create (or rename) a layout called 'Account'. 
+	* Base the layout on the 'Account' table occurrence
 	* This will be the utility layout used to create and delete account records.
 	* You can rename it to conform to your naming conventions later.
-	* ???redundant??? Make sure it has all the fields in the Account table on it.
 4. Copy and paste the GLOBAL table in the module file to your master file.  
-	* If you already have a GLOBAL table in master, rename the primary TO for this table to GLOBAL, and just copy the fields found in the GLOBAL table.  
+	* If you already had a globals table, copy and paste the fields in the module GLOBAL table to your table. This includes global fields, a constant, and a container field for the launcher file.  
 	* You can rename the TO back to your conventions later.  
 	* Alternatively, you can create another TO instance of your interface/global table and call it GLOBAL.
-	* If you already had a globals table, copy and paste the fields in the module GLOBAL table to your table. This includes global fields, a constant, and a container field for the launcher file.
 	* Create one record in the GLOBAL table.
 	* Create a table occurrance for the GLOBAL table called 'System'. This is in addition to the GLOBAL table occurrance.
 5. Create a layout for account management in the master file
+	* Name the layout 'AccountManagement'
 	* This will be the UI layout used to manage accounts.
-	* The TO context for this layout should be System.  
-	* Create, or rename, a table occurance that will be used by a portal on this layout called 'Account'.
+	* The TO context for this layout should be System.
+6. Create a layout based on the 'System' table occurrence in the master file.
+6. In the master file, connect the System and Account table occurrences
 	* Connect the TO for the System table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
 
 ###Value Lists and Privilege Sets
 5. Create Value Lists
-	* Create a Value List in master file: Accounts_PrivilegeSet and add your privilege sets to the custom value list. Watch your spelling! 
+	* Create a Value List in master file: 'Accounts_PrivilegeSet' and add your privilege sets to the custom value list. Watch your spelling! 
 	* Create a Value List in master file: Accounts_Boolean with custom value of 1 and 0.
 	* Again, if you already have these value lists, rename what you have.
 6. Create Privilege Sets
@@ -103,7 +104,8 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Each public script will have instructions inside the script.
 	* Instructions will involve copying a block of script steps for each privilege set in the solution.
 	* Follow the instructions in each public script carefully, make sure to modify each line where called to do so.
-	* Don't edit the Accounts: ErrorText or Accounts: AllowAbort scripts.  They are in public, but do not need to be edited.  
+	* Don't edit the Accounts: ErrorText or Accounts: AllowAbort scripts.  They are in public, but do not need to be edited. 
+10. Copy Public - All Files scripts 
 	* Create a Modules script folder in each managed file.
 	* Creates an Accounts script subfolder in Modules script folder in each managed file.
 	* Copy the 'Accounts: Public - All Files' folder to the Modules/Accounts script folder in each managed file.
@@ -115,6 +117,7 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 	* Modify scripts in the 'Accounts: Public - Master File Only' folder
 	* Each of the scripts with 'SubScript' in the script name will need to call their respective scripts in each managed file.
 	* Follow the instructions carefully, changing the script steps as indicated in the script comments.
+	* If the master file is also a managed file, then the first script block is already configured for the master file. No need to change it.
 12. Script Modification 3: Accounts: ReturnAccountSettings
 	* Modify the script Accounts: ReturnAccountSettings in the master file.
 	* Specify a default password.
@@ -122,15 +125,15 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 
 ###User Interface and Testing
 13. Add User Interface Elements
-	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to your solution layout designated for account management.
-	* Check the import.log file for any new errors.
+	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to the 'AccountManagement' layout in the master file.
+	* Make sure there are no broken field references on the layout.
 	* Add your launcher file to the launcher container field.
 	* If you already had user interface for showing accounts in a portal, then you will have to modify the buttons to run the Accounts: Account Function script.  Check the module buttons for the proper syntax for the script parameters on the buttons. Don't modify the script parameters, just copy and paste to the appropriate button.
 14. Testing and Wrapup
 	* Test each function: Create/Delete/Status/Reset/Change Privilege/Email
 	* If testing is successful, revert the names of each object you renamed for the integration.
 	* If there were already accounts in each of your managed files, they should be removed and recreated.
-	* Delete the dummy privilege sets PrivSet1 and PrivSet2 from the master file.
+	* Delete the dummy privilege sets PrivSet1 and PrivSet2 from each of the managed files.
 
 Nicely done!
 
