@@ -5,6 +5,10 @@ The Accounts module allows for management of user accounts in a FileMaker Pro in
 
 Version 2.02
 
+Source is on Github: https://github.com/darrenburgess/FileMaker-Accounts-Module
+
+Development roadmap is in the Readme script in the module.
+
 Assumptions
 -----------
 The module makes some assumptions about the security schema for multifile solutions.
@@ -53,7 +57,7 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 
 ###Initial Set Up
 1. I pity the fool that that don't make no back up!
-2. Decide which file in your solution is the 'Master'. This will generally be the UI file in a separated solution.
+2. Decide which file in your solution is the 'master'. This will generally be the UI file in a separated solution.
 3. Decide which file(s) in your solution will require account management. This will generally be the data file and can include the master file as well. These will be the 'managed' files.
 
 ###Tables and Layouts
@@ -84,11 +88,11 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 ###Value Lists and Privilege Sets
 1. Create Value Lists
 	* Create a Value List in master file: 'Accounts_PrivilegeSet' and add your privilege sets to the custom value list. Watch your spelling! 
-	* Create a Value List in master file: Accounts_Boolean with custom value of 1 and 0.
+	* Create a Value List in master file: 'Accounts_Boolean' with custom value of 1 and 0.
 	* If you already have these value lists, rename what you have to the names provided above. You can restore your original names later.
 2. Create Privilege Sets
 	* For all files that will have managed accounts, create the privilege sets that the module will use. The module expects that for each managed file the privilege sets are the same. Check spelling, fool!
-	* Create two 'dummy' privilege sets: 'PrivSet1', 'PrivSet2' in all managed files. You will delete these later.
+	* Create two 'dummy' privilege sets - 'PrivSet1', 'PrivSet2' - in all managed files. You will delete these later.
 
 ###Scripts
 1. Copy Scripts: Master file only
