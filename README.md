@@ -46,7 +46,7 @@ Integration of the Accounts module should take less than an hour. There are mult
 
 The FileMaker import.log file that is generated when importing objects such as scripts is an important measure of a successful integration. I recommend you integrate locally rather than on server.  The import.log file will conveniently appear in the project directory when you import the scripts. If you are developing on a server, the import.log file should appear in the user documents directory.
 
-###Quick steps for a failed integration
+### Quick steps for a failed integration
 1. Don't read the instructions.
 2. Perform the steps out of order.
 3. Don't ask for help.
@@ -57,12 +57,12 @@ Again, modifying scripts in the private folders or any script parameters is a PO
 
 Important: Once you integrate the module, avoid modifying accounts in any of the managed files using the FileMaker security dialogs.  Doing so can create lack of parity between the actual accounts and the account records, causing errors in the module.  After integration try to only use the module to manage accounts.
 
-###Initial Set Up
+### Initial Set Up
 1. I pity the fool that that don't make no back up!
 2. Decide which file in your solution is the 'master'. This will generally be the UI file in a separated solution.
 3. Decide which file(s) in your solution will require account management. This will generally be the data file and can include the master file as well. These will be the 'managed' files.
 
-###Tables and Layouts
+### Tables and Layouts
 1. Copy the module table 'Account' to your solution data file
 	* If you already had an Account table, create or rename your fields so that the field names are the same. If there are any fields missing, copy them over to your existing table.
 	* The module does not care about your creation/modification account and timestamp fields or your ID. You do not need to rename them.
@@ -87,7 +87,7 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 7. In the master file, connect the System and Account table occurrences
 	* Connect the TO for the System table to the TO for the Account table using the 'X' comparative operator connecting GLOBAL::Accounts_Constant to Accounts::id
 
-###Value Lists and Privilege Sets
+### Value Lists and Privilege Sets
 1. Create Value Lists
 	* Create a Value List in master file: 'Accounts_PrivilegeSet' and add your privilege sets to the custom value list. Watch your spelling! 
 	* Create a Value List in master file: 'Accounts_Boolean' with custom value of 1 and 0.
@@ -96,7 +96,7 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 	* For all files that will have managed accounts, create the privilege sets that the module will use. The module expects that for each managed file the privilege sets are the same. Check spelling, fool!
 	* Create two 'dummy' privilege sets - 'PrivSet1', 'PrivSet2' - in all managed files. You will delete these later.
 
-###Scripts
+### Scripts
 1. Copy Scripts: Master file only
 	* Create a Modules script folder in the master file.
 	* Clear or delete the import.log file before you import scripts. 
@@ -132,7 +132,7 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 	* Specify a default password.
 	* Modify other settings as desired.
 
-###User Interface and Testing
+### User Interface and Testing
 1. Add User Interface Elements
 	* Copy and paste all objects in the layout body of the layout 'AccountManagement' to the 'AccountManagement' layout in the master file.
 	* Make sure there are no broken field references on the layout.
@@ -147,7 +147,7 @@ Important: Once you integrate the module, avoid modifying accounts in any of the
 
 Nicely done!
 
-###Contact me if you have any questions:
+### Contact me if you have any questions:
 	* darrentburgess(at)gmail.com
 	* @darrenburgess on twitter.
 
